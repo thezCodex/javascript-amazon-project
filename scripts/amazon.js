@@ -1,5 +1,6 @@
-import { cart } from "../data/cart.js";
+import { cart,addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
+
 
 let productsHTML = '';
 
@@ -66,37 +67,28 @@ document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
 //interactiveity
 
+
+
+
+
+
+function updateCartQuantity () {
+    let  cartQuantity = 0;
+
+    cart.forEach((cartItem) => {
+        cartQuantity += cartItem.quantity;
+    });
+    
+    document.querySelector('.js-cart-quantity')
+        .innerHTML = cartQuantity;
+
+}
+
 document.querySelectorAll('.js-add-to-cart')
     .forEach((button) => {
         button.addEventListener('click', () => {
            const productId = button.dataset.productId;
-
-           let matching;
-
-            cart.forEach((item) => {
-                if (productId === item.productId){
-                    matching = item;
-                }
-            });
-
-            if (matching) {
-                matching.quantity += 1;
-            } else {
-                cart.push({
-                    productId: productId,
-                    quantity : 1
-                   });
-            }
-
-            let  cartQuantity = 0;
-
-            cart.forEach((items) => {
-                cartQuantity += items.quantity;
-            });
-            
-            document.querySelector('.js-cart-quantity')
-                .innerHTML = cartQuantity;
-
- 
+           addToCart(productId);
+            updateCartQuantity();
         });
-    });
+    }); 
