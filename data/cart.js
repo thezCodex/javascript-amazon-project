@@ -35,7 +35,7 @@ export function removeFromCart(productId) {
     const newCart = [];
 
 
-    cart.forEach(() => {
+    cart.forEach((cartItem) => {
         if (cartItem.productId !== productId) {
             newCart.push(cartItem);
         }
